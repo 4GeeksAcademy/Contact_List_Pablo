@@ -1,0 +1,33 @@
+
+
+.boxContact {
+    border: solid black 1px;
+    margin: 2px 0px 2px 0px;
+}
+
+.photo {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+  }
+
+  .dats {
+    color: gray;
+  }
+
+  .buttons {
+    border: none;
+    background-color: rgba(0, 0, 255, 0);
+    font-size: larger;
+    margin: 4px 4px 0px 4px;
+  }
+
+  .buttons:hover {
+    border: solid 1px black;
+  }
+
+  .icon {
+    padding-right: 10px;
+  }
