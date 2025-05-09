@@ -2,18 +2,25 @@ import React, { useState, useEffect } from "react";
 import "./ContactEditForm.css"
 
 
-export const ContactEditForm = ({ onClose, valueAddress, onSave }) => {
+export const ContactEditForm = ({ onClose, valuePhoto, valueName, valueEmail, valuePhone, valueAddress, onSave }) => {
 
-    const [address, setAddress ] = useState("");
+    const [photo, setPhoto] = useState("");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [address, setAddress] = useState("");
 
     useEffect(() => {
+        setPhoto(valuePhoto);
+        setName(valueName);
+        setEmail(valueEmail);
+        setPhone(valuePhone);
         setAddress(valueAddress);
-    }, [valueAddress]);
+    }, [valueName, valueAddress]);
 
     const handleSave = (e) => {
         e.preventDefault();
-        console.log("Guardando dirección:", address);
-        onSave(address);
+        onSave({ photo, name, email, phone, address });
         onClose();
     }
 
@@ -31,18 +38,22 @@ export const ContactEditForm = ({ onClose, valueAddress, onSave }) => {
                                     <h1>Edit Contact</h1>
                                 </div>
                                 <div> {/* Form Zone */}
-                                    <form onSubmit={handleSave}>  {/* onSubmit={manejarEnvio} */}
+                                    <form onSubmit={handleSave}>
+                                        <div>
+                                            <div className="container text-center">
+                                                <img src={photo} className="photoEdit" />  {/* PENDIENTE IMAGEN*/}
+                                            </div>
                                         <div className="boxInput">
                                             <label><strong>Full Name:</strong></label>
-                                            <input className="inputStyle" type="text"  /> {/*required*/}
+                                            <input className="inputStyle" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
                                         </div>
                                         <div className="boxInput">
                                             <label><strong>Email:</strong></label>
-                                            <input className="inputStyle" type="text"  />
+                                            <input className="inputStyle" type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
                                         </div>
                                         <div className="boxInput">
                                             <label><strong>Phone:</strong></label>
-                                            <input className="inputStyle" type="number" step={1}  /> {/*required*/}
+                                            <input className="inputStyle" type="number" step={1} value={phone} onChange={(e) => setPhone(e.target.value)} required />
                                         </div>
                                         <div className="boxInput">
                                             <label><strong>Address:</strong></label>
@@ -50,6 +61,7 @@ export const ContactEditForm = ({ onClose, valueAddress, onSave }) => {
                                         </div>
                                         <div>
                                             <button type="submit" className="buttonStyle">Edit Complete</button>
+                                        </div>
                                         </div>
                                     </form>
                                 </div>

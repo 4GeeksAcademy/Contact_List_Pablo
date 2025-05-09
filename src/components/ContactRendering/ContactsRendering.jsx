@@ -19,12 +19,12 @@ export const ContactsRendering = () => {
         setShowModalEdit(true);
     }
 
-    const handleSaveEdit = (newAddress) => {
+    const handleSaveEdit = (updateDats) => {
         if (!contactToEdit) return;
 
         const updateContact = contacts.map((contact) =>
         contact.id === contactToEdit.id
-        ? {...contact, address: newAddress }
+        ? {...contact, ...updateDats }
         : contact );
 
         setContacts(updateContact);
@@ -38,7 +38,6 @@ export const ContactsRendering = () => {
     const handleCloseModal = () => { // Cierra Modals
         setShowModalDelete(false);
         setShowModalEdit(false);
-        //setContactToDelete(null);
         setContactToEdit(null);
     };
 
@@ -79,7 +78,12 @@ export const ContactsRendering = () => {
             ))}
 
             {showModalEdit && contactToEdit && ( <ContactEditForm
-                onClose={handleCloseModal} valueAddress={contactToEdit.address} onSave={handleSaveEdit} /> )} {/*Editar initialAddress */}
+                onClose={handleCloseModal} onSave={handleSaveEdit}
+                valuePhoto={contactToEdit.photo}
+                valueName={contactToEdit.name}
+                valueEmail={contactToEdit.email}
+                valuePhone={contactToEdit.phone}
+                valueAddress={contactToEdit.address} /> )} {/*Editar initialAddress */}
 
             {showModalDelete && < ConfirmDeletion
                 onClose={handleCloseModal}
