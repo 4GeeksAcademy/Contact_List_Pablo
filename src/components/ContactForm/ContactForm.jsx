@@ -16,7 +16,7 @@ export const ContactForm = () => {
     const { addContact } = useContext(ContactContext);
 
 
-    const manejarEnvio = (e) => { //Cambiar a ingles
+    const handleSubmit = (e) => { //Cambiar a ingles
         e.preventDefault();
 
         const newContact = {
@@ -40,7 +40,7 @@ export const ContactForm = () => {
                     <h1>Add a new contact</h1>
                 </div>
                 <div> {/* Form Zone */}
-                    <form onSubmit={manejarEnvio}>
+                    <form onSubmit={handleSubmit}>
                         <div className="boxInput">
                             <label><strong>Full Name:</strong></label>
                             <input className="inputStyle" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
@@ -60,15 +60,16 @@ export const ContactForm = () => {
                         {/* ///// */}
                         <div className="boxInput">
                             <label><strong>Photo:</strong></label>
-                            <input className="inputStyle" type="file" accept="image/*" onChange={(e) => {const file =e.target.files[0];
-                                                                                                        if (file) {
-                                                                                                            const reader = new FileReader();
-                                                                                                            reader.onloadend = () => {
-                                                                                                                setPhoto(reader.result);
-                                                                                                            };
-                                                                                                            reader.readAsDataURL(file);
-                                                                                                        }
-                                                                                                        }} />
+                            <input className="inputStyle" type="file" accept="image/*" onChange={(e) => {
+                                const file = e.target.files[0];
+                                if (file) {
+                                    const reader = new FileReader();
+                                    reader.onloadend = () => {
+                                        setPhoto(reader.result);
+                                    };
+                                    reader.readAsDataURL(file);
+                                }
+                            }} />
                         </div>
                         {/* ///// */}
                         <div>

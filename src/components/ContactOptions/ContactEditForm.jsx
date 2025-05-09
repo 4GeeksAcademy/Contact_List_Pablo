@@ -48,3 +48,6 @@ export const ContactEditForm = ({ onClose }) => {
         </>
     );
 };
+
+
+//Solo son obligatorios los <Input> de Nombre y Numero telefonico ya que son los datos indispensables y los demas opcionales
