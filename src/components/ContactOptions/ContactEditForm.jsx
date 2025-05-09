@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./ContactEditForm.css"
 
 
@@ -9,6 +9,8 @@ export const ContactEditForm = ({ onClose, valuePhoto, valueName, valueEmail, va
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
+
+    const imgEdit = useRef(null);
 
     useEffect(() => {
         setPhoto(valuePhoto);
@@ -22,6 +24,21 @@ export const ContactEditForm = ({ onClose, valuePhoto, valueName, valueEmail, va
         e.preventDefault();
         onSave({ photo, name, email, phone, address });
         onClose();
+    };
+
+    const handleImg = () => {
+        imgEdit.current.click();
+    };
+
+    const handleImgChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPhoto(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
     }
 
     return (
@@ -41,7 +58,10 @@ export const ContactEditForm = ({ onClose, valuePhoto, valueName, valueEmail, va
                                     <form onSubmit={handleSave}>
                                         <div>
                                             <div className="container text-center">
-                                                <img src={photo} className="photoEdit" />  {/* PENDIENTE IMAGEN*/}
+                                                <img src={photo || "https://cdn-icons-png.flaticon.com/512/1199/1199663.png"}
+                                                className="photoEdit"
+                                                onClick={handleImg} /> 
+                                                <input type="file" accept="image/*" ref={imgEdit} onChange={handleImgChange} />
                                             </div>
                                         <div className="boxInput">
                                             <label><strong>Full Name:</strong></label>

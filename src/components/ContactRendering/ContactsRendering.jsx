@@ -48,7 +48,7 @@ export const ContactsRendering = () => {
                     <div className="col-2"> {/* Photo Zone */}
                         <img className="photo" src={contact.photo || "https://cdn-icons-png.flaticon.com/512/1199/1199663.png"} />
                     </div>
-                    <div className="col-9"> {/* Dats Zone */}
+                    <div className="col-8"> {/* Dats Zone */}
                         <h2>{contact.name}</h2>
                         <div className="dats">
                             <div>
@@ -65,7 +65,7 @@ export const ContactsRendering = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-1"> {/* Button Zone */}
+                    <div className="col-2"> {/* Button Zone */}
                         <button onClick={() => { setContactToEdit(contact); handleEdit();}} className="buttons">
                             <i className="fa-solid fa-pen-to-square"></i>
                         </button> {/* Button para abrir un modal "Editar Contacto" */}
@@ -98,7 +98,3 @@ export const ContactsRendering = () => {
 
 
 //He decidido que los modal esten en otros archivos para tenerlos más localizables y creo que más ordenado
-
-
-//Arreglar problema con los Button Editar y Borrar porque cuando estas sobre edit el borrar se mueve abajo
-//Posiblemente se arregle dando mas estacio en "col-" osea columna
