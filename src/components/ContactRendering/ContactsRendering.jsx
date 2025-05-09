@@ -79,11 +79,11 @@ export const ContactsRendering = () => {
 
             {showModalEdit && contactToEdit && ( <ContactEditForm
                 onClose={handleCloseModal} onSave={handleSaveEdit}
-                valuePhoto={contactToEdit.photo}
                 valueName={contactToEdit.name}
                 valueEmail={contactToEdit.email}
                 valuePhone={contactToEdit.phone}
-                valueAddress={contactToEdit.address} /> )} {/*Editar initialAddress */}
+                valueAddress={contactToEdit.address}
+                valuePhoto={contactToEdit.photo} /> )} {/*Editar initialAddress */}
 
             {showModalDelete && < ConfirmDeletion
                 onClose={handleCloseModal}
