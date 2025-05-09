@@ -11,8 +11,8 @@ export const ConfirmDeletion = ({ onClose, onDelete }) => {
                             <h2>Confirm to Delete?.</h2>
                         </div>
                         <div className="modal-footer">
-                            <button onClick={onDelete} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Confirm</button>
-                            <button onClick={onClose} type="button" className="btn btn-primary">Cancel</button>
+                            <button onClick={onDelete} type="button" className="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
+                            <button onClick={onClose} type="button" className="btn btn-secondary">Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -20,3 +20,5 @@ export const ConfirmDeletion = ({ onClose, onDelete }) => {
         </>
     );
 };
+
+//btn btn-primary

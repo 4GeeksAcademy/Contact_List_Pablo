@@ -1,5 +1,4 @@
 import {createContext, useState } from "react";
-import { Contacts } from "../pages/Contacts";
 
 export const ContactContext = createContext();
 
@@ -15,7 +14,7 @@ export const ContactProvider = ({ children }) => {
     };
 
     return(
-        <ContactContext.Provider value={{ contacts, addContact, deleteContact }}>
+        <ContactContext.Provider value={{ contacts, setContacts, addContact, deleteContact }}>
             {children}
         </ContactContext.Provider>
     );

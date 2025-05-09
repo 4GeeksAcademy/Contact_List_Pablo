@@ -7,15 +7,28 @@ import "./ContactsRendering.css"
 
 export const ContactsRendering = () => {
 
-    const { contacts, deleteContact } = useContext(ContactContext); /// Borrar setContacts
+    const { contacts, setContacts, deleteContact } = useContext(ContactContext); /// Borrar setContacts
 
     const [showModalEdit, setShowModalEdit] = useState(false);
     const [showModalDelete, setShowModalDelete] = useState(false);
 
     const [contactToDelete, setContactToDelete] = useState(null);
+    const [contactToEdit, setContactToEdit] = useState(null);
 
     const handleEdit = () => { //Abre Modal Editar contacto
         setShowModalEdit(true);
+    }
+
+    const handleSaveEdit = (newAddress) => {
+        if (!contactToEdit) return;
+
+        const updateContact = contacts.map((contact) =>
+        contact.id === contactToEdit.id
+        ? {...contact, address: newAddress }
+        : contact );
+
+        setContacts(updateContact);
+        handleCloseModal();
     }
 
     const handleShowModal = () => { //Abre modal para borrar contacto
@@ -25,6 +38,8 @@ export const ContactsRendering = () => {
     const handleCloseModal = () => { // Cierra Modals
         setShowModalDelete(false);
         setShowModalEdit(false);
+        //setContactToDelete(null);
+        setContactToEdit(null);
     };
 
     return (
@@ -52,7 +67,7 @@ export const ContactsRendering = () => {
                         </div>
                     </div>
                     <div className="col-1"> {/* Button Zone */}
-                        <button onClick={() => { handleEdit(); }} className="buttons">
+                        <button onClick={() => { setContactToEdit(contact); handleEdit();}} className="buttons">
                             <i className="fa-solid fa-pen-to-square"></i>
                         </button> {/* Button para abrir un modal "Editar Contacto" */}
 
@@ -63,8 +78,8 @@ export const ContactsRendering = () => {
                 </div>
             ))}
 
-            {showModalEdit && <ContactEditForm
-                onClose={handleCloseModal} />}
+            {showModalEdit && contactToEdit && ( <ContactEditForm
+                onClose={handleCloseModal} valueAddress={contactToEdit.address} onSave={handleSaveEdit} /> )} {/*Editar initialAddress */}
 
             {showModalDelete && < ConfirmDeletion
                 onClose={handleCloseModal}

@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./ContactEditForm.css"
 
 
-export const ContactEditForm = ({ onClose }) => {
+export const ContactEditForm = ({ onClose, valueAddress, onSave }) => {
+
+    const [address, setAddress ] = useState("");
+
+    useEffect(() => {
+        setAddress(valueAddress);
+    }, [valueAddress]);
+
+    const handleSave = (e) => {
+        e.preventDefault();
+        console.log("Guardando dirección:", address);
+        onSave(address);
+        onClose();
+    }
 
     return (
         <>
@@ -18,10 +31,10 @@ export const ContactEditForm = ({ onClose }) => {
                                     <h1>Edit Contact</h1>
                                 </div>
                                 <div> {/* Form Zone */}
-                                    <form>  {/* onSubmit={manejarEnvio} */}
+                                    <form onSubmit={handleSave}>  {/* onSubmit={manejarEnvio} */}
                                         <div className="boxInput">
                                             <label><strong>Full Name:</strong></label>
-                                            <input className="inputStyle" type="text"  required />
+                                            <input className="inputStyle" type="text"  /> {/*required*/}
                                         </div>
                                         <div className="boxInput">
                                             <label><strong>Email:</strong></label>
@@ -29,11 +42,11 @@ export const ContactEditForm = ({ onClose }) => {
                                         </div>
                                         <div className="boxInput">
                                             <label><strong>Phone:</strong></label>
-                                            <input className="inputStyle" type="number" step={1}  required />
+                                            <input className="inputStyle" type="number" step={1}  /> {/*required*/}
                                         </div>
                                         <div className="boxInput">
                                             <label><strong>Address:</strong></label>
-                                            <input className="inputStyle" type="text"  />
+                                            <input className="inputStyle" type="text" value={address} onChange={(e) => setAddress(e.target.value)}  />
                                         </div>
                                         <div>
                                             <button type="submit" className="buttonStyle">Edit Complete</button>

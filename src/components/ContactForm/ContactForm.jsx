@@ -16,7 +16,7 @@ export const ContactForm = () => {
     const { addContact } = useContext(ContactContext);
 
 
-    const handleSubmit = (e) => { //Cambiar a ingles
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         const newContact = {
