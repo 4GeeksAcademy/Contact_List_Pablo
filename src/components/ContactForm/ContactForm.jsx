@@ -57,7 +57,6 @@ export const ContactForm = () => {
                             <label><strong>Address:</strong></label>
                             <input className="inputStyle" type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
                         </div>
-                        {/* ///// */}
                         <div className="boxInput">
                             <label><strong>Photo:</strong></label>
                             <input className="inputStyle" type="file" accept="image/*" onChange={(e) => {
@@ -71,7 +70,6 @@ export const ContactForm = () => {
                                 }
                             }} />
                         </div>
-                        {/* ///// */}
                         <div>
                             <button type="submit" className="buttonStyle">Create</button>
                         </div>

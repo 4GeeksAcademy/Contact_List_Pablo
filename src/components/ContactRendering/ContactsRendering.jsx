@@ -7,7 +7,7 @@ import "./ContactsRendering.css"
 
 export const ContactsRendering = () => {
 
-    const { contacts, setContacts, deleteContact } = useContext(ContactContext); /// Borrar setContacts
+    const { contacts, setContacts, deleteContact } = useContext(ContactContext);
 
     const [showModalEdit, setShowModalEdit] = useState(false);
     const [showModalDelete, setShowModalDelete] = useState(false);
