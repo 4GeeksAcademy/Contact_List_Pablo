@@ -4,6 +4,7 @@ import { ContactEditForm } from "../ContactOptions/ContactEditForm";
 import { ConfirmDeletion } from "../ContactOptions/ConfirmDeletion";
 import "./ContactsRendering.css"
 
+// Usuario API: PabloPh, Creado el 15/05/2025
 
 export const ContactsRendering = () => {
 
@@ -15,7 +16,7 @@ export const ContactsRendering = () => {
     const [contactToDelete, setContactToDelete] = useState(null);
     const [contactToEdit, setContactToEdit] = useState(null);
 
-/////////////////////////////////
+    /////////////////////////////////////////////////////////////
     useEffect(() => {
         fetchContacts();
     }, []);
@@ -47,7 +48,7 @@ export const ContactsRendering = () => {
     };
 
 
-    //////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
 
     const deleteContactFromServer = async (id) => {
         try {
@@ -68,23 +69,57 @@ export const ContactsRendering = () => {
         }
     };
 
-    //////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
 
     const handleEdit = () => { //Abre Modal Editar contacto
         setShowModalEdit(true);
     }
 
-    const handleSaveEdit = (updateDats) => {
+    /////////////////////////////////////////////////////////////
+
+    const handleSaveEdit = async (updateData) => {
         if (!contactToEdit) return;
 
-        const updateContact = contacts.map((contact) =>
-        contact.id === contactToEdit.id
-        ? {...contact, ...updateDats }
-        : contact );
+        const updateContact = {
+            name: updateData.name,
+            email: updateData.email,
+            phone: updateData.phone,
+            address: updateData.address,
+            agenda_slug: "PabloPh"
+        };
 
-        setContacts(updateContact);
-        handleCloseModal();
-    }
+
+        try {
+            const response = await fetch(`https://playground.4geeks.com/contact/agendas/PabloPh/contacts/${contactToEdit.id}`,{
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updateContact)
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error("Error editing:", errorText);
+                throw new Error("It has not been possible to edit the contact");
+            }
+
+            const updateContacts = contacts.map(contact =>
+            contact.id === contactToEdit.id
+            ? {...contact, ...updateData }
+            : contact );
+
+            setContacts(updateContacts);
+            handleCloseModal();
+
+        } catch (error) {
+            console.error("Error in handleSaveEdit:", error.message);
+            alert("There was a problem editing the contact");
+        }
+    };
+
+
+    /////////////////////////////////////////////////////////////////////
 
     const handleShowModal = () => { //Abre modal para borrar contacto
         setShowModalDelete(true);
@@ -159,3 +194,5 @@ export const ContactsRendering = () => {
 //Desde que aplique la API ya no funciona el cargar imagenes debido a que no es algo que acepte la API
 
 //Todo lo relacionado con las fotos de contactos preferi dejarlo por si me es útil a futuro
+
+// Hay Comentarios separando las zonas donde agregue Fetch, los dejo así en caso de necesitar mirar su extructura a futuro

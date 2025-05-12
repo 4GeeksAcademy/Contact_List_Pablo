@@ -27,7 +27,7 @@ export const ContactForm = () => {
             photo,
             id: Date.now()
         };
-/////////////////////////////
+        /////////////////////////////////////////////////////////////
         try {
             const response = await fetch ("https://playground.4geeks.com/contact/agendas/PabloPh/contacts",
                 {
@@ -46,7 +46,7 @@ export const ContactForm = () => {
         } catch (error) {
             console.log(error);
         }
-//////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
         addContact(newContact);
         alert("Contact Created")
         navigate("/contacts")
