@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { ContactContext } from "../ContactContext";
 import { ContactEditForm } from "../ContactOptions/ContactEditForm";
 import { ConfirmDeletion } from "../ContactOptions/ConfirmDeletion";
@@ -14,6 +14,40 @@ export const ContactsRendering = () => {
 
     const [contactToDelete, setContactToDelete] = useState(null);
     const [contactToEdit, setContactToEdit] = useState(null);
+
+/////////////////////////////////
+    useEffect(() => {
+        fetchContacts();
+    }, []);
+
+
+    const fetchContacts = async () => {
+        try {
+            const response = await fetch("https://playground.4geeks.com/contact/agendas/PabloPh/contacts");
+
+            if (!response.ok) {
+                throw new Error ("We have not been able to recover the contacts");
+            }
+
+            const data = await response.json();
+
+            const formattedContacts = data.contacts.map(contact => ({
+                id: contact.id,
+                name: contact.name,
+                email: contact.email,
+                phone: contact.phone,
+                address: contact.address,
+                photo: ""
+            }));
+
+            setContacts(formattedContacts);
+        } catch (error) {
+            console.error("Error getting contacts", error.message);
+        }
+    };
+
+
+    //////////////////////////////////////////////
 
     const handleEdit = () => { //Abre Modal Editar contacto
         setShowModalEdit(true);
@@ -83,7 +117,7 @@ export const ContactsRendering = () => {
                 valueEmail={contactToEdit.email}
                 valuePhone={contactToEdit.phone}
                 valueAddress={contactToEdit.address}
-                valuePhoto={contactToEdit.photo} /> )} {/*Editar initialAddress */}
+                valuePhoto={contactToEdit.photo} /> )}
 
             {showModalDelete && < ConfirmDeletion
                 onClose={handleCloseModal}
@@ -98,3 +132,9 @@ export const ContactsRendering = () => {
 
 
 //He decidido que los modal esten en otros archivos para tenerlos más localizables y creo que más ordenado
+
+//En principio lo habia hecho con opción y imagen pero cuando aplique la API vi que no tenia opción a cargar imagen, decidi dejarlo ya que lo hice
+
+//Desde que aplique la API ya no funciona el cargar imagenes debido a que no es algo que acepte la API
+
+//Todo lo relacionado con las fotos de contactos preferi dejarlo por si me es útil a futuro

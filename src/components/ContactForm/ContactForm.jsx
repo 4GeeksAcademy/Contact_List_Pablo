@@ -16,7 +16,7 @@ export const ContactForm = () => {
     const { addContact } = useContext(ContactContext);
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const newContact = {
@@ -27,7 +27,26 @@ export const ContactForm = () => {
             photo,
             id: Date.now()
         };
+/////////////////////////////
+        try {
+            const response = await fetch ("https://playground.4geeks.com/contact/agendas/PabloPh/contacts",
+                {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(newContact)
+				}
+            );
 
+            if (!response.ok) {
+                throw new Error("A ocurrido un error")
+            }
+            const data = await response.json()
+        } catch (error) {
+            console.log(error);
+        }
+//////////////////////////////////////////
         addContact(newContact);
         alert("Contact Created")
         navigate("/contacts")

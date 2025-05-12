@@ -20,5 +20,3 @@ export const ConfirmDeletion = ({ onClose, onDelete }) => {
         </>
     );
 };
-
-//btn btn-primary
