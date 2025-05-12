@@ -49,6 +49,27 @@ export const ContactsRendering = () => {
 
     //////////////////////////////////////////////
 
+    const deleteContactFromServer = async (id) => {
+        try {
+            const response = await fetch (`https://playground.4geeks.com/contact/agendas/PabloPh/contacts/${id}`,
+                { method: "DELETE"}
+            );
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error("It could not be deleted" + errorText);
+            }
+
+            setContacts(prev => prev.filter(contact => contact.id !== id));
+            alert("Eliminado correctamente");
+        } catch (error) {
+            console.error("Error al eliminar", error.message);
+            alert("There was an error deleting the contact");
+        }
+    };
+
+    //////////////////////////////////////////////
+
     const handleEdit = () => { //Abre Modal Editar contacto
         setShowModalEdit(true);
     }
@@ -121,8 +142,8 @@ export const ContactsRendering = () => {
 
             {showModalDelete && < ConfirmDeletion
                 onClose={handleCloseModal}
-                onDelete={() => {
-                    deleteContact(contactToDelete.id); //Elimina el contacto que coincida con el ID
+                onDelete={ async () => {
+                    await deleteContactFromServer(contactToDelete.id); //Elimina el contacto que coincida con el ID
                     setContactToDelete(null)
                     handleCloseModal(); //Cierra el modal despues de borrar
                 }} />}

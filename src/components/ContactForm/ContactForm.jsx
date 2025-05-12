@@ -40,7 +40,7 @@ export const ContactForm = () => {
             );
 
             if (!response.ok) {
-                throw new Error("A ocurrido un error")
+                throw new Error("Could not add contact")
             }
             const data = await response.json()
         } catch (error) {
